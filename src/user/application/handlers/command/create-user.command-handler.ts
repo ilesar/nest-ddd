@@ -5,6 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { TemplateCommandHandler } from '@root/core/templates/_template.command-handler';
 import { CountryTypeormRepository } from '@user/infrastructure/modules/database/repositories/country-typeorm.repository';
 import { CountryRepositoryInterface } from '@shared/domain/repositories/country-repository.interface';
+import { UserRepositoryInterface } from '@shared/domain/repositories/user-repository.interface';
+import { Country } from '@shared/domain/models/country.model';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserCommandHandler
@@ -13,6 +15,8 @@ export class CreateUserCommandHandler
 {
   constructor(
     @InjectRepository(CountryTypeormRepository)
+    private userRepository: UserRepositoryInterface,
+    @InjectRepository(CountryTypeormRepository)
     private countryRepository: CountryRepositoryInterface,
     private readonly userManagementService: UserManagementService,
   ) {
@@ -20,17 +24,17 @@ export class CreateUserCommandHandler
   }
 
   async execute(command: CreateUserCommand) {
-    // const { externalId, phoneNumber, role, countryId } = command;
-    //
-    // const user = this.userManagementService.createUser(
-    //   identity,
-    //   phoneNumber,
-    //   role,
-    //   country,
-    // );
-    //
-    // await this.identityRepository.store(user.identity);
-    //
-    // return user;
+    const { role, countryId } = command;
+
+    const country = await this.resolveModel<Country>(
+      this.countryRepository,
+      countryId,
+    );
+
+    const user = this.userManagementService.createUser(role, country);
+
+    await this.userRepository.store(user);
+
+    return user;
   }
 }

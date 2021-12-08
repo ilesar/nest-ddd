@@ -56,9 +56,8 @@ export class DependencyService {
 
   private buildTree(module: Module): TreeModel {
     const importedModules = Array.from(module.imports);
-    const filteredImportedModules = this.removeIgnoredModulesFromPool(
-      importedModules,
-    );
+    const filteredImportedModules =
+      this.removeIgnoredModulesFromPool(importedModules);
 
     const tree = new TreeModel();
     tree.name = module.metatype.name;

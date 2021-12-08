@@ -145,6 +145,10 @@ type Query {
     """Specify to sort results."""
     sorting: [CountrySort!] = []
   ): CountryConnection!
+  country(
+    """The id of the record to find."""
+    id: String!
+  ): Country
   user(
     """The id of the record to find."""
     id: String!

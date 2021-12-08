@@ -7,7 +7,7 @@ import { CountryEntity } from '@shared/infrastructure/modules/database/entities/
 @Resolver(() => CountryDto)
 export class CountryResolver extends CRUDResolver(CountryDto, {
   create: { disabled: true },
-  read: { one: { disabled: true }, many: { disabled: false } },
+  read: { one: { disabled: false }, many: { disabled: false } },
   update: { disabled: true },
   delete: { disabled: true },
 }) {

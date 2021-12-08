@@ -1,0 +1,280 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Cursor for paging through collections"""
+scalar ConnectionCursor
+
+type Country {
+  code: String!
+  continent: String!
+  createdAt: DateTime!
+  currencyId: String!
+  flag: String!
+  id: String!
+  name: String!
+  phoneCode: String!
+  updatedAt: DateTime!
+}
+
+type CountryAggregateGroupBy {
+  createdAt: DateTime
+  id: String
+  updatedAt: DateTime
+}
+
+type CountryConnection {
+  """Array of edges."""
+  edges: [CountryEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type CountryCountAggregate {
+  createdAt: Int
+  id: Int
+  updatedAt: Int
+}
+
+type CountryEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the Country"""
+  node: Country!
+}
+
+input CountryFilter {
+  and: [CountryFilter!]
+  createdAt: DateFieldComparison
+  id: StringFieldComparison
+  or: [CountryFilter!]
+  updatedAt: DateFieldComparison
+}
+
+type CountryMaxAggregate {
+  createdAt: DateTime
+  id: String
+  updatedAt: DateTime
+}
+
+type CountryMinAggregate {
+  createdAt: DateTime
+  id: String
+  updatedAt: DateTime
+}
+
+input CountrySort {
+  direction: SortDirection!
+  field: CountrySortFields!
+  nulls: SortNulls
+}
+
+enum CountrySortFields {
+  createdAt
+  id
+  updatedAt
+}
+
+input CursorPaging {
+  """Paginate after opaque cursor"""
+  after: ConnectionCursor
+
+  """Paginate before opaque cursor"""
+  before: ConnectionCursor
+
+  """Paginate first"""
+  first: Int
+
+  """Paginate last"""
+  last: Int
+}
+
+input DateFieldComparison {
+  between: DateFieldComparisonBetween
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  is: Boolean
+  isNot: Boolean
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
+  notBetween: DateFieldComparisonBetween
+  notIn: [DateTime!]
+}
+
+input DateFieldComparisonBetween {
+  lower: DateTime!
+  upper: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  updateOneUser(input: UpdateUserInput!): User!
+}
+
+type PageInfo {
+  """The cursor of the last returned record."""
+  endCursor: ConnectionCursor
+
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+
+  """The cursor of the first returned record."""
+  startCursor: ConnectionCursor
+}
+
+type Query {
+  countries(
+    """Specify to filter the records returned."""
+    filter: CountryFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [CountrySort!] = []
+  ): CountryConnection!
+  user(
+    """The id of the record to find."""
+    id: String!
+  ): User
+  users(
+    """Specify to filter the records returned."""
+    filter: UserFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [UserSort!] = []
+  ): UserConnection!
+}
+
+enum Role {
+  Admin
+}
+
+"""Sort Directions"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Sort Nulls Options"""
+enum SortNulls {
+  NULLS_FIRST
+  NULLS_LAST
+}
+
+input StringFieldComparison {
+  eq: String
+  gt: String
+  gte: String
+  iLike: String
+  in: [String!]
+  is: Boolean
+  isNot: Boolean
+  like: String
+  lt: String
+  lte: String
+  neq: String
+  notILike: String
+  notIn: [String!]
+  notLike: String
+}
+
+input UpdateUserCountryInput {
+  id: String!
+}
+
+input UpdateUserInput {
+  avatarUrl: String
+  country: UpdateUserCountryInput
+  email: String
+  firstName: String
+  lastName: String
+  role: [Role!]
+}
+
+type User {
+  avatarUrl: String
+  country: Country!
+  createdAt: DateTime!
+  email: String
+  firstName: String
+  id: String!
+  lastName: String
+  role: [Role!]!
+  updatedAt: DateTime!
+}
+
+type UserAggregateGroupBy {
+  createdAt: DateTime
+  id: String
+  updatedAt: DateTime
+}
+
+type UserConnection {
+  """Array of edges."""
+  edges: [UserEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type UserCountAggregate {
+  createdAt: Int
+  id: Int
+  updatedAt: Int
+}
+
+type UserEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the User"""
+  node: User!
+}
+
+input UserFilter {
+  and: [UserFilter!]
+  createdAt: DateFieldComparison
+  id: StringFieldComparison
+  or: [UserFilter!]
+  updatedAt: DateFieldComparison
+}
+
+type UserMaxAggregate {
+  createdAt: DateTime
+  id: String
+  updatedAt: DateTime
+}
+
+type UserMinAggregate {
+  createdAt: DateTime
+  id: String
+  updatedAt: DateTime
+}
+
+input UserSort {
+  direction: SortDirection!
+  field: UserSortFields!
+  nulls: SortNulls
+}
+
+enum UserSortFields {
+  createdAt
+  id
+  updatedAt
+}

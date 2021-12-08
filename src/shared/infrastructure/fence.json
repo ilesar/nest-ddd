@@ -1,0 +1,32 @@
+{
+  "tags": [
+    "sharedInfrastructure",
+    "infrastructure"
+  ],
+  "exports": [
+    {
+      "modules": "**/*.{module,config,layer,service}",
+      "accessibleTo": ["main","seed","test"]
+    },
+    {
+      "modules": "**/*.{config,interface,service,enum}",
+      "accessibleTo": ["application"]
+    },
+    {
+      "modules": "**/*.{config,service,interface,guard,decorator,interceptor,util,entity,repository,assembler,input,dto}",
+      "accessibleTo": ["infrastructure"]
+    },
+    {
+      "modules": "*",
+      "accessibleTo": ["application"]
+    }
+  ],
+  "imports": [
+    "core",
+    "sharedApplication",
+    "sharedDomain",
+    "userApplication",
+    "userDomain",
+    "userInfrastructure"
+  ]
+}

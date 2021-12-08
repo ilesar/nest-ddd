@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+#npm run bfjs:lint
+#npm run bfjs:fences
+#npm run bfjs:e2e

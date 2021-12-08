@@ -1,0 +1,29 @@
+{
+  "tags": [
+    "userApplication",
+    "application"
+  ],
+  "exports": [
+    {
+      "modules": "**/*.{command,interface,query,subscriber,layer}",
+      "accessibleTo": ["userInfrastructure"]
+    }
+  ],
+  "imports": [
+    "core",
+    "userDomain",
+    "sharedDomain",
+    "sharedApplication",
+    "infrastructure"
+  ],
+  "dependencies": [
+    "@nestjs/common",
+    "@nestjs/cqrs",
+    "@nestjs/testing",
+    "@nestjs/typeorm",
+    "graphql-subscriptions",
+    "@nestjs/jwt",
+    "lodash",
+    "@bornfight/bfjs-nest-media-module"
+  ]
+}

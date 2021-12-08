@@ -1,0 +1,23 @@
+{
+  "tags": [
+    "userDomain",
+    "domain"
+  ],
+  "exports": [
+    {
+      "modules": "**/*.{service,model,enum,exception,validator,layer,repository}",
+      "accessibleTo": ["userApplication"]
+    },
+    {
+      "modules": "**/*.{model,enum,exception}",
+      "accessibleTo": ["userInfrastructure"]
+    }
+  ],
+  "imports": [
+    "core",
+    "sharedDomain"
+  ],
+  "dependencies": [
+    "@nestjs/common"
+  ]
+}

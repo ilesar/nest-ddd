@@ -1,0 +1,10 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+#npm run bfjs:uml
+#git add ./public/erd.png
+#git commit -m "Update ERD schema" --no-verify
+
+npm run bfjs:lint
+npm run bfjs:fences
+npm run bfjs:e2e

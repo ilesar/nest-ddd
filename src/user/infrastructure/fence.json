@@ -1,0 +1,24 @@
+{
+  "tags": [
+    "userInfrastructure",
+    "infrastructure"
+  ],
+  "exports": [
+    {
+      "modules": "infrastructure.layer",
+      "accessibleTo": ["main"]
+    },
+    {
+      "modules": "*",
+      "accessibleTo": ["userApplication"]
+    }
+  ],
+  "imports": [
+    "core",
+    "userApplication",
+    "userDomain",
+    "sharedDomain",
+    "sharedApplication",
+    "sharedInfrastructure"
+  ]
+}

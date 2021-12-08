@@ -1,0 +1,25 @@
+entity: user
+processor: ./processors/user.processor.ts
+items:
+  userOrganizer:
+    id: '105c7adf-02c5-4ddb-8fd6-786c1d83936c'
+    firstName: 'Test'
+    lastName: 'Organizer'
+    gender: 'Male'
+    phoneNumber: '+385951231234'
+    roles: ['organizer']
+    createdAt: '{{date.past}}'
+    updatedAt: '{{date.past}}'
+    identity: '@identityOrganizer'
+    type: 'fixture'
+
+  testUser{1..9}:
+    id: '105c7adf-02c5-4ddb-8fd6-29f0b1cae99($current)'
+    firstName: 'Test'
+    lastName: 'User'
+    gender: 'Male'
+    phoneNumber: '+3859512($current)'
+    roles: [ 'contestant' ]
+    createdAt: '{{date.past}}'
+    updatedAt: '{{date.past}}'
+    type: 'fixture'

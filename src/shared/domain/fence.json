@@ -1,0 +1,27 @@
+{
+  "tags": [
+    "sharedDomain",
+    "domain"
+  ],
+  "exports": [
+    {
+      "modules": "**/*.{service,model,enum,exception,interface,layer}",
+      "accessibleTo": ["application"]
+    },
+    {
+      "modules": "**/*.{model,enum,interface}",
+      "accessibleTo": ["infrastructure", "test"]
+    },
+    {
+      "modules": "**/*.{model,enum,interface}",
+      "accessibleTo": ["domain"]
+    }
+  ],
+  "imports": [
+    "core"
+  ],
+  "dependencies": [
+    "@nestjs/common",
+    "@nestjs/graphql"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "tags": [
+    "sharedApplication",
+    "application"
+  ],
+  "exports": [
+    {
+      "modules": "**/*.{enum,util,command,command-handler,interface,decorator,config}",
+      "accessibleTo": ["application"]
+    },
+    {
+      "modules": "**/*.{interface,decorator,util,seed,enum,layer}",
+      "accessibleTo": ["infrastructure"]
+    }
+
+  ],
+  "imports": [
+    "core",
+    "sharedDomain",
+    "infrastructure"
+  ]
+}

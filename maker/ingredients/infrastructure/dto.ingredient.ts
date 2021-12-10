@@ -1,38 +1,42 @@
-import { IndentationText, Project, QuoteKind } from 'ts-morph';
+import { IngredientInterface } from '../../interfaces/ingredient.interface';
 
-const project = new Project({
-  tsConfigFilePath: 'tsconfig.json',
-  manipulationSettings: {
-    quoteKind: QuoteKind.Single,
-    indentationText: IndentationText.TwoSpaces,
-  },
-});
-const sourceFile = project.createSourceFile(
-  'something.dto.ts',
-  {},
-  { overwrite: true },
-);
+export class DtoIngredient implements IngredientInterface {
+  getFilePath(): string {
+    return 'something.dto.ts';
+  }
 
-sourceFile.addImportDeclarations([
-  {
-    defaultImport: '{ TemplateDto }',
-    moduleSpecifier: '@core/templates/_template.dto',
-  },
-  {
-    defaultImport: '{ Dto }',
-    moduleSpecifier: '@core/decorators/dto.decorator',
-  },
-]);
+  getImports(): any {
+    return {
+      '{ TemplateDto }': '@core/templates/_template.dto',
+      '{ Dto }': '@core/decorators/dto.decorator',
+    };
+  }
 
-const classDeclaration = sourceFile.addClass({
-  name: 'SomethingDto',
-  extends: 'TemplateDto',
-  isExported: true,
-});
+  getDecorators(): any {
+    return {
+      Dto: 'SomethingDto',
+    };
+  }
 
-classDeclaration.addDecorator({
-  name: 'Dto',
-  arguments: ['SomethingDto'],
-});
+  getClassName(): string {
+    return 'SomethingDto';
+  }
 
-sourceFile.saveSync();
+  getClassExtends(): string {
+    return 'TemplateDto';
+  }
+
+  getInterfaceName(): string | undefined {
+    return;
+  }
+
+  getInterfaceExtends(): string[] | undefined {
+    return;
+  }
+
+  hasConstructor = false;
+
+  getMethods(): any[] {
+    return [];
+  }
+}

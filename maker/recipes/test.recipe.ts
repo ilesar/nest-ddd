@@ -11,6 +11,10 @@ import { EventHandlerIngredient } from '../ingredients/application/event-handler
 import { ModelIngredient } from '../ingredients/domain/model.ingredient';
 import { ServiceIngredient } from '../ingredients/domain/service.ingredient';
 import { RepositoryInterfaceIngredient } from '../ingredients/domain/repository-interface.ingredient';
+import { DtoIngredient } from '../ingredients/infrastructure/dto.ingredient';
+import { InputIngredient } from '../ingredients/infrastructure/input.ingredient';
+import { CreateInputIngredient } from '../ingredients/infrastructure/create-input.ingredient';
+import { UpdateInputIngredient } from '../ingredients/infrastructure/update-input.ingredient';
 
 export class TestRecipe implements RecipeInterface {
   execute(fileFactory: FileFactory): void {
@@ -26,5 +30,10 @@ export class TestRecipe implements RecipeInterface {
     fileFactory.createFileFromIngredient(new ModelIngredient());
     fileFactory.createFileFromIngredient(new ServiceIngredient());
     fileFactory.createFileFromIngredient(new RepositoryInterfaceIngredient());
+
+    fileFactory.createFileFromIngredient(new DtoIngredient());
+    fileFactory.createFileFromIngredient(new InputIngredient());
+    fileFactory.createFileFromIngredient(new CreateInputIngredient());
+    fileFactory.createFileFromIngredient(new UpdateInputIngredient());
   }
 }

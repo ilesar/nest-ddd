@@ -1,55 +1,55 @@
-import { IndentationText, Project, QuoteKind } from 'ts-morph';
+import { IngredientInterface } from '../../interfaces/ingredient.interface';
 
-const project = new Project({
-  tsConfigFilePath: 'tsconfig.json',
-  manipulationSettings: {
-    quoteKind: QuoteKind.Single,
-    indentationText: IndentationText.TwoSpaces,
-  },
-});
-const sourceFile = project.createSourceFile(
-  'update-something.input.ts',
-  {},
-  { overwrite: true },
-);
+export class UpdateInputIngredient implements IngredientInterface {
+  getFilePath(): string {
+    return 'update-something.input.ts';
+  }
 
-sourceFile.addImportDeclarations([
-  {
-    defaultImport: `{ 
+  getImports(): any {
+    return {
+      [`{ 
   InputType,
   PartialType,
   IntersectionType,
-  PickType
-}`,
-    moduleSpecifier: '@nestjs/graphql',
-  },
-  {
-    defaultImport: '{ CreateSomethingInput }',
-    moduleSpecifier: './create-something.input',
-  },
-  {
-    defaultImport: '{ TemplateDto }',
-    moduleSpecifier: '@core/templates/_template.dto',
-  },
-]);
+  PickType,
+}`]: '@nestjs/graphql',
+      '{ CreateSomethingInput }': './create-something.input',
+      '{ TemplateDto }': '@core/templates/_template.dto',
+    };
+  }
 
-const classDeclaration = sourceFile.addClass({
-  name: 'UpdateSomethingInput',
-  extends: `IntersectionType(
+  getDecorators(): any {
+    return {
+      'InputType()': null,
+    };
+  }
+
+  getClassName(): string {
+    return 'UpdateSomethingInput';
+  }
+
+  getClassExtends(): string {
+    return `IntersectionType(
 PickType(TemplateDto, ['id'] as const),
 PartialType(
   PickType(CreateSomethingInput, [
     /* updateable properties here */
   ] as const),
 ),
-)`,
-  isExported: true,
-});
+)`;
+  }
 
-classDeclaration.addDecorator({
-  name: 'InputType()',
-});
+  getInterfaceName(): string | undefined {
+    return;
+  }
 
-sourceFile.formatText();
+  getInterfaceExtends(): string[] | undefined {
+    return;
+  }
 
-sourceFile.saveSync();
+  hasConstructor = false;
+
+  getMethods(): any[] {
+    return [];
+  }
+}

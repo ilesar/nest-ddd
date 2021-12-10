@@ -1,42 +1,50 @@
-import { IndentationText, Project, QuoteKind } from 'ts-morph';
+import { IngredientInterface } from '../../interfaces/ingredient.interface';
 
-const project = new Project({
-  tsConfigFilePath: 'tsconfig.json',
-  manipulationSettings: {
-    quoteKind: QuoteKind.Single,
-    indentationText: IndentationText.TwoSpaces,
-  },
-});
-const sourceFile = project.createSourceFile(
-  'something.input.ts',
-  {},
-  { overwrite: true },
-);
+export class InputIngredient implements IngredientInterface {
+  getFilePath(): string {
+    return 'something.input.ts';
+  }
 
-sourceFile.addImportDeclarations([
-  {
-    defaultImport: '{ InputType, PickType }',
-    moduleSpecifier: '@nestjs/graphql',
-  },
-  {
-    defaultImport: '{ SomethingDto }',
-    moduleSpecifier: './something.dto',
-  },
-]);
+  getImports(): any {
+    return {
+      '{ InputType, PickType }': '@nestjs/graphql',
+      '{ SomethingDto }': './something.dto',
+    };
+  }
 
-const classDeclaration = sourceFile.addClass({
-  name: 'SomethingInput',
-  extends: `PickType(SomethingDto, [] as const)`,
-  isExported: true,
-});
+  getDecorators(): any {
+    return {
+      InputType: [
+        () => {
+          return { isAbstract: true };
+        },
+      ],
+    };
+  }
 
-classDeclaration.addDecorator({
-  name: 'InputType',
-  arguments: [
-    () => {
-      return { isAbstract: true };
-    },
-  ],
-});
+  getClassName(): string {
+    return 'SomethingInput';
+  }
 
-sourceFile.saveSync();
+  getClassExtends(): string {
+    return `PickType(SomethingDto, [
+  'id',
+  'createdAt',
+  'updatedAt',
+] as const)`;
+  }
+
+  getInterfaceName(): string | undefined {
+    return;
+  }
+
+  getInterfaceExtends(): string[] | undefined {
+    return;
+  }
+
+  hasConstructor = false;
+
+  getMethods(): any[] {
+    return [];
+  }
+}

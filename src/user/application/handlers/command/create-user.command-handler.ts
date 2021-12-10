@@ -1,5 +1,5 @@
 import { CreateUserCommand } from '../../commands/create-user.command';
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler } from '@nestjs/cqrs';
 import { UserManagementService } from '@user/domain/services/user-management.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TemplateCommandHandler } from '@root/core/templates/_template.command-handler';

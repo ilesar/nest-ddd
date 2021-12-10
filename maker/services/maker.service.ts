@@ -4,8 +4,6 @@ import { MakerCommand } from '../enums/maker-command.enum';
 import { RecipeInterface } from '../interfaces/recipe.interface';
 
 export class MakerService {
-  private fileFactory: FileFactory;
-
   public async getCommandName(): Promise<MakerCommand> {
     return new Promise((resolve, reject) => {
       inquirer
@@ -14,6 +12,7 @@ export class MakerService {
             type: 'list',
             name: 'maker_command',
             choices: [
+              MakerCommand.Test,
               MakerCommand.Command,
               MakerCommand.Query,
               MakerCommand.Subscriber,
@@ -35,6 +34,6 @@ export class MakerService {
   }
 
   executeRecipe(recipe: RecipeInterface) {
-    recipe.execute();
+    recipe.execute(new FileFactory());
   }
 }

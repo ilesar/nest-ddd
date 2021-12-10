@@ -22,10 +22,10 @@ export class File {
   }
 
   addImports(importDefinitions: any[]) {
-    const importDeclarations = Object.fromEntries(
-      Object.entries(importDefinitions).map(([importName, importPath]) =>
-        this.createImportChunk(importName, importPath),
-      ),
+    const importDeclarations = Object.entries(importDefinitions).map(
+      ([importName, importPath]) => {
+        return this.createImportChunk(importName, importPath);
+      },
     );
 
     this.source.addImportDeclarations(importDeclarations);
@@ -40,11 +40,9 @@ export class File {
   }
 
   addDecorators(decoratorDefinitions: any[]) {
-    const decoratorDeclarations = Object.fromEntries(
-      Object.entries(decoratorDefinitions).map(
-        ([decoratorName, decoratorArguments]) =>
-          this.createDecoratorChunk(decoratorName, decoratorArguments),
-      ),
+    const decoratorDeclarations = Object.entries(decoratorDefinitions).map(
+      ([decoratorName, decoratorArguments]) =>
+        this.createDecoratorChunk(decoratorName, decoratorArguments),
     );
 
     this.classDeclaration.addDecorators(decoratorDeclarations);
@@ -52,11 +50,14 @@ export class File {
 
   addConstructor() {
     this.ctor = this.classDeclaration.addConstructor({});
-    this.ctor.addStatements('super();');
+    this.ctor.addStatements('super({});');
   }
 
   addMethods(methodDefinitions: any[]) {
-    this.classDeclaration.addMethods(methodDefinitions);
+    for (const methodDefinition of methodDefinitions) {
+      const method = this.classDeclaration.addMethod(methodDefinition.header);
+      method.addStatements(methodDefinition.body.statements);
+    }
   }
 
   private createImportChunk(importName: string, importPath: string): any {

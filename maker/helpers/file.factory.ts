@@ -22,7 +22,11 @@ export class FileFactory {
     file.addImports(ingredient.getImports());
     file.addClass(ingredient.getClassName(), ingredient.getClassExtends());
     file.addDecorators(ingredient.getDecorators());
-    file.addConstructor();
+
+    if (ingredient.hasConstructor) {
+      file.addConstructor();
+    }
+
     file.addMethods(ingredient.getMethods());
 
     file.save();

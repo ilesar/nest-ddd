@@ -3,7 +3,7 @@ import { Logger } from '@nestjs/common';
 export abstract class TemplateCommand {
   protected readonly logger = new Logger(this.constructor.name);
 
-  constructor(parameters?: { [key: string]: any }, silent?: boolean) {
+  protected constructor(parameters?: { [key: string]: any }, silent?: boolean) {
     if (silent && process.env.SHOW_SILENT_LOGS !== 'true') {
       return;
     }

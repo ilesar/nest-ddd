@@ -1,3 +1,5 @@
+import { FileFactory } from '../helpers/file.factory';
+
 export interface RecipeInterface {
-  execute(): void;
+  execute(fileFactory: FileFactory): void;
 }

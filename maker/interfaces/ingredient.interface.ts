@@ -5,4 +5,5 @@ export interface IngredientInterface {
   getClassExtends(): string;
   getDecorators(): any;
   getMethods(): any;
+  hasConstructor: boolean;
 }

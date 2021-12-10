@@ -1,18 +1,22 @@
 import { MakerService } from './services/maker.service';
-import { RecipeInterface } from './interfaces/recipe.interface';
 import { MakerCommand } from './enums/maker-command.enum';
 import { CommandWithHandlerRecipe } from './recipes/command-with-handler.recipe';
 import { QueryWithHandlerRecipe } from './recipes/query-with-handler.recipe';
 import { SubscriberWithHandlerRecipe } from './recipes/subscriber-with-handler.recipe';
 import { EventWithHandlerRecipe } from './recipes/event-with-handler.recipe';
+import { RecipeInterface } from './interfaces/recipe.interface';
+import { TestRecipe } from './recipes/test.recipe';
 
 (async () => {
-  const maker = new MakerService();
   let recipe: RecipeInterface;
+  const maker = new MakerService();
 
   const commandName = await maker.getCommandName();
 
   switch (commandName) {
+    case MakerCommand.Test:
+      recipe = new TestRecipe();
+      break;
     case MakerCommand.Command:
       recipe = new CommandWithHandlerRecipe();
       break;

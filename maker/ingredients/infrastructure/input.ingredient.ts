@@ -34,6 +34,10 @@ export class InputIngredient implements IngredientInterface {
 ] as const)`;
   }
 
+  getClassImplements(): string[] | undefined {
+    return;
+  }
+
   getInterfaceName(): string | undefined {
     return;
   }

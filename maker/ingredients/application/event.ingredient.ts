@@ -23,6 +23,10 @@ export class EventIngredient implements IngredientInterface {
     return 'TemplateEvent';
   }
 
+  getClassImplements(): string[] | undefined {
+    return;
+  }
+
   getInterfaceName(): string | undefined {
     return;
   }

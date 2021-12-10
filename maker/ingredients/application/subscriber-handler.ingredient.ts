@@ -26,6 +26,10 @@ export class SubscriberHandlerIngredient implements IngredientInterface {
     return 'TemplateSubscriberHandler<SomethingSubscriber>';
   }
 
+  getClassImplements(): string[] | undefined {
+    return;
+  }
+
   getInterfaceName(): string | undefined {
     return;
   }

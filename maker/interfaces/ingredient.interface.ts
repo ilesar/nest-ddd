@@ -4,6 +4,7 @@ export interface IngredientInterface {
 
   getClassName(): string | undefined;
   getClassExtends(): string | undefined;
+  getClassImplements(): string[] | undefined;
   getInterfaceName(): string | undefined;
   getInterfaceExtends(): string[] | undefined;
 

@@ -33,10 +33,11 @@ export class File {
     this.source.addImportDeclarations(importDeclarations);
   }
 
-  addClass(name: string, extendsParam?: any) {
+  addClass(name: string, extendsParam?: any, implementsParams?: any[]) {
     this.classDeclaration = this.source.addClass({
       name: name,
       extends: extendsParam,
+      implements: implementsParams,
       isExported: true,
     });
   }

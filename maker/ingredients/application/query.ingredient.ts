@@ -23,6 +23,10 @@ export class QueryIngredient implements IngredientInterface {
     return 'TemplateQuery';
   }
 
+  getClassImplements(): string[] | undefined {
+    return;
+  }
+
   getInterfaceName(): string | undefined {
     return;
   }

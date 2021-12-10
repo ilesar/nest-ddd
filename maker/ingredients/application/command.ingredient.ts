@@ -23,6 +23,10 @@ export class CommandIngredient implements IngredientInterface {
     return 'TemplateCommand';
   }
 
+  getClassImplements(): string[] | undefined {
+    return;
+  }
+
   getInterfaceName(): string | undefined {
     return;
   }

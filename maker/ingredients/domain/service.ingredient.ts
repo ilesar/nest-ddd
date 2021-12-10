@@ -25,6 +25,10 @@ export class ServiceIngredient implements IngredientInterface {
     return;
   }
 
+  getClassImplements(): string[] | undefined {
+    return;
+  }
+
   getInterfaceName(): string | undefined {
     return;
   }

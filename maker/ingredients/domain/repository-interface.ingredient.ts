@@ -24,6 +24,10 @@ export class RepositoryInterfaceIngredient implements IngredientInterface {
     return;
   }
 
+  getClassImplements(): string[] | undefined {
+    return;
+  }
+
   getInterfaceName(): string | undefined {
     return 'SomethingRepositoryInterface';
   }

@@ -1,49 +1,48 @@
-import { IndentationText, Project, QuoteKind } from 'ts-morph';
+import { IngredientInterface } from '../../interfaces/ingredient.interface';
 
-const project = new Project({
-  tsConfigFilePath: 'tsconfig.json',
-  manipulationSettings: {
-    quoteKind: QuoteKind.Single,
-    indentationText: IndentationText.TwoSpaces,
-  },
-});
-const sourceFile = project.createSourceFile(
-  'something.repository.ts',
-  {},
-  { overwrite: true },
-);
+export class RepositoryIngredient implements IngredientInterface {
+  getFilePath(): string {
+    return 'something.repository.ts';
+  }
 
-sourceFile.addImportDeclarations([
-  {
-    defaultImport: '{ EntityRepository }',
-    moduleSpecifier: 'typeorm',
-  },
-  {
-    defaultImport: '{ SomethingEntity }',
-    moduleSpecifier: './something.entity',
-  },
-  {
-    defaultImport: '{ SomethingRepositoryInterface }',
-    moduleSpecifier: './something-repository.interface',
-  },
-  {
-    defaultImport: '{ TemplateRepository }',
-    moduleSpecifier: '@core/templates/_template.repository',
-  },
-]);
+  getImports(): any {
+    return {
+      '{ EntityRepository }': 'typeorm',
+      '{ SomethingEntity }': './something.entity',
+      '{ SomethingRepositoryInterface }': './something-repository.interface',
+      '{ TemplateRepository }': '@core/templates/_template.repository',
+    };
+  }
 
-const classDeclaration = sourceFile.addClass({
-  name: 'SomethingTypeormRepository',
-  extends: 'TemplateRepository<SomethingEntity>',
-  implements: ['SomethingRepositoryInterface'],
-  isExported: true,
-});
+  getDecorators(): any {
+    return {
+      EntityRepository: ['SomethingEntity'],
+    };
+  }
 
-classDeclaration.addDecorator({
-  name: 'EntityRepository',
-  arguments: ['SomethingEntity'],
-});
+  getClassName(): string {
+    return 'SomethingTypeormRepository';
+  }
 
-sourceFile.formatText();
+  getClassExtends(): string {
+    return 'TemplateRepository<SomethingEntity>';
+  }
 
-sourceFile.saveSync();
+  getClassImplements(): string[] | undefined {
+    return ['SomethingRepositoryInterface'];
+  }
+
+  getInterfaceName(): string | undefined {
+    return;
+  }
+
+  getInterfaceExtends(): string[] | undefined {
+    return;
+  }
+
+  hasConstructor = false;
+
+  getMethods(): any[] {
+    return [];
+  }
+}

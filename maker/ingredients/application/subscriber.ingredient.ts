@@ -23,6 +23,10 @@ export class SubscriberIngredient implements IngredientInterface {
     return 'TemplateSubscriber';
   }
 
+  getClassImplements(): string[] | undefined {
+    return;
+  }
+
   getInterfaceName(): string | undefined {
     return;
   }

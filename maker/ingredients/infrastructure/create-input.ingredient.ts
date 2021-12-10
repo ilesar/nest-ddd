@@ -26,6 +26,10 @@ export class CreateInputIngredient implements IngredientInterface {
     return `PickType(SomethingInput, [] as const)`;
   }
 
+  getClassImplements(): string[] | undefined {
+    return;
+  }
+
   getInterfaceName(): string | undefined {
     return;
   }

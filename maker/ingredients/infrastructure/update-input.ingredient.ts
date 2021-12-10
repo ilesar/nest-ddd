@@ -39,6 +39,10 @@ PartialType(
 )`;
   }
 
+  getClassImplements(): string[] | undefined {
+    return;
+  }
+
   getInterfaceName(): string | undefined {
     return;
   }

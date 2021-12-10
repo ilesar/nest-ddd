@@ -1,42 +1,50 @@
-import { IndentationText, Project, QuoteKind } from 'ts-morph';
+import { IngredientInterface } from '../../interfaces/ingredient.interface';
 
-const project = new Project({
-  tsConfigFilePath: 'tsconfig.json',
-  manipulationSettings: {
-    quoteKind: QuoteKind.Single,
-    indentationText: IndentationText.TwoSpaces,
-  },
-});
-const sourceFile = project.createSourceFile(
-  'something.entity.ts',
-  {},
-  { overwrite: true },
-);
+export class EntityIngredient implements IngredientInterface {
+  getFilePath(): string {
+    return 'something.entity.ts';
+  }
 
-sourceFile.addImportDeclarations([
-  {
-    defaultImport: '{ Entity }',
-    moduleSpecifier: 'typeorm',
-  },
-  {
-    defaultImport: '{ TemplateEntity }',
-    moduleSpecifier: '@core/templates/_template.entity',
-  },
-]);
+  getImports(): any {
+    return {
+      '{ Entity }': 'typeorm',
+      '{ TemplateEntity }': '@core/templates/_template.entity',
+    };
+  }
 
-const classDeclaration = sourceFile.addClass({
-  name: 'SomethingEntity',
-  extends: 'TemplateEntity',
-  isExported: true,
-});
+  getDecorators(): any {
+    return {
+      Entity: [
+        () => {
+          return { name: 'something' };
+        },
+      ],
+    };
+  }
 
-classDeclaration.addDecorator({
-  name: 'Entity',
-  arguments: [
-    () => {
-      return { name: 'something' };
-    },
-  ],
-});
+  getClassName(): string {
+    return 'SomethingEntity';
+  }
 
-sourceFile.saveSync();
+  getClassExtends(): string {
+    return 'TemplateEntity';
+  }
+
+  getClassImplements(): string[] | undefined {
+    return;
+  }
+
+  getInterfaceName(): string | undefined {
+    return;
+  }
+
+  getInterfaceExtends(): string[] | undefined {
+    return;
+  }
+
+  hasConstructor = false;
+
+  getMethods(): any[] {
+    return [];
+  }
+}

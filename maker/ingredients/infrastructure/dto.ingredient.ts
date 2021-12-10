@@ -26,6 +26,10 @@ export class DtoIngredient implements IngredientInterface {
     return 'TemplateDto';
   }
 
+  getClassImplements(): string[] | undefined {
+    return;
+  }
+
   getInterfaceName(): string | undefined {
     return;
   }

@@ -23,6 +23,10 @@ export class ModelIngredient implements IngredientInterface {
     return 'TemplateModel';
   }
 
+  getClassImplements(): string[] | undefined {
+    return;
+  }
+
   getInterfaceName(): string | undefined {
     return;
   }

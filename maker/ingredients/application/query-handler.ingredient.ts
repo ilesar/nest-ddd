@@ -25,6 +25,14 @@ export class QueryHandlerIngredient implements IngredientInterface {
     return 'TemplateQueryHandler<SomethingQuery>';
   }
 
+  getInterfaceName(): string | undefined {
+    return;
+  }
+
+  getInterfaceExtends(): string[] | undefined {
+    return;
+  }
+
   hasConstructor = false;
 
   getMethods(): any[] {

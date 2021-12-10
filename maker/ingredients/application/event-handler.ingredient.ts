@@ -25,6 +25,14 @@ export class EventHandlerIngredient implements IngredientInterface {
     return 'TemplateEventHandler<CreateSomethingEvent>';
   }
 
+  getInterfaceName(): string | undefined {
+    return;
+  }
+
+  getInterfaceExtends(): string[] | undefined {
+    return;
+  }
+
   hasConstructor = false;
 
   getMethods(): any[] {

@@ -8,6 +8,9 @@ import { SubscriberIngredient } from '../ingredients/application/subscriber.ingr
 import { QueryHandlerIngredient } from '../ingredients/application/query-handler.ingredient';
 import { SubscriberHandlerIngredient } from '../ingredients/application/subscriber-handler.ingredient';
 import { EventHandlerIngredient } from '../ingredients/application/event-handler.ingredient';
+import { ModelIngredient } from '../ingredients/domain/model.ingredient';
+import { ServiceIngredient } from '../ingredients/domain/service.ingredient';
+import { RepositoryInterfaceIngredient } from '../ingredients/domain/repository-interface.ingredient';
 
 export class TestRecipe implements RecipeInterface {
   execute(fileFactory: FileFactory): void {
@@ -19,5 +22,9 @@ export class TestRecipe implements RecipeInterface {
     fileFactory.createFileFromIngredient(new SubscriberHandlerIngredient());
     fileFactory.createFileFromIngredient(new EventIngredient());
     fileFactory.createFileFromIngredient(new EventHandlerIngredient());
+
+    fileFactory.createFileFromIngredient(new ModelIngredient());
+    fileFactory.createFileFromIngredient(new ServiceIngredient());
+    fileFactory.createFileFromIngredient(new RepositoryInterfaceIngredient());
   }
 }

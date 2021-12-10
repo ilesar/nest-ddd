@@ -23,6 +23,14 @@ export class SubscriberIngredient implements IngredientInterface {
     return 'TemplateSubscriber';
   }
 
+  getInterfaceName(): string | undefined {
+    return;
+  }
+
+  getInterfaceExtends(): string[] | undefined {
+    return;
+  }
+
   hasConstructor = true;
 
   getMethods(): any[] {

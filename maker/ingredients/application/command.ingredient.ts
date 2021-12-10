@@ -23,6 +23,14 @@ export class CommandIngredient implements IngredientInterface {
     return 'TemplateCommand';
   }
 
+  getInterfaceName(): string | undefined {
+    return;
+  }
+
+  getInterfaceExtends(): string[] | undefined {
+    return;
+  }
+
   hasConstructor = true;
 
   getMethods(): any[] {

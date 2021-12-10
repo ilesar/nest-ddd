@@ -1,29 +1,39 @@
-import { IndentationText, Project, QuoteKind } from 'ts-morph';
+import { IngredientInterface } from '../../interfaces/ingredient.interface';
 
-const project = new Project({
-  tsConfigFilePath: 'tsconfig.json',
-  manipulationSettings: {
-    quoteKind: QuoteKind.Single,
-    indentationText: IndentationText.TwoSpaces,
-  },
-});
-const sourceFile = project.createSourceFile(
-  'something.model.ts',
-  {},
-  { overwrite: true },
-);
+export class ModelIngredient implements IngredientInterface {
+  getFilePath(): string {
+    return 'something.model.ts';
+  }
 
-sourceFile.addImportDeclarations([
-  {
-    defaultImport: '{ TemplateModel }',
-    moduleSpecifier: '@core/templates/_template.model',
-  },
-]);
+  getImports(): any {
+    return {
+      '{ TemplateModel }': '@core/templates/_template.model',
+    };
+  }
 
-sourceFile.addClass({
-  name: 'Something',
-  extends: 'TemplateModel',
-  isExported: true,
-});
+  getDecorators(): any {
+    return [];
+  }
 
-sourceFile.saveSync();
+  getClassName(): string {
+    return 'Something';
+  }
+
+  getClassExtends(): string {
+    return 'TemplateModel';
+  }
+
+  getInterfaceName(): string | undefined {
+    return;
+  }
+
+  getInterfaceExtends(): string[] | undefined {
+    return;
+  }
+
+  hasConstructor = false;
+
+  getMethods(): any[] {
+    return [];
+  }
+}

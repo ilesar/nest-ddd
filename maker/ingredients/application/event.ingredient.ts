@@ -23,6 +23,14 @@ export class EventIngredient implements IngredientInterface {
     return 'TemplateEvent';
   }
 
+  getInterfaceName(): string | undefined {
+    return;
+  }
+
+  getInterfaceExtends(): string[] | undefined {
+    return;
+  }
+
   hasConstructor = true;
 
   getMethods(): any[] {

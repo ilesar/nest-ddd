@@ -1,32 +1,41 @@
-import { IndentationText, Project, QuoteKind } from 'ts-morph';
+import { IngredientInterface } from '../../interfaces/ingredient.interface';
 
-const project = new Project({
-  tsConfigFilePath: 'tsconfig.json',
-  manipulationSettings: {
-    quoteKind: QuoteKind.Single,
-    indentationText: IndentationText.TwoSpaces,
-  },
-});
-const sourceFile = project.createSourceFile(
-  'something-management.service.ts',
-  {},
-  { overwrite: true },
-);
+export class ServiceIngredient implements IngredientInterface {
+  getFilePath(): string {
+    return 'something-management.service.ts';
+  }
 
-sourceFile.addImportDeclarations([
-  {
-    defaultImport: '{ Injectable }',
-    moduleSpecifier: '@nestjs/common',
-  },
-]);
+  getImports(): any {
+    return {
+      '{ Injectable }': '@nestjs/common',
+    };
+  }
 
-const classDeclaration = sourceFile.addClass({
-  name: 'SomethingManagementService',
-  isExported: true,
-});
+  getDecorators(): any {
+    return {
+      'Injectable()': null,
+    };
+  }
 
-classDeclaration.addDecorator({
-  name: 'Injectable()',
-});
+  getClassName(): string {
+    return 'SomethingManagementService';
+  }
 
-sourceFile.saveSync();
+  getClassExtends(): string | undefined {
+    return;
+  }
+
+  getInterfaceName(): string | undefined {
+    return;
+  }
+
+  getInterfaceExtends(): string[] | undefined {
+    return;
+  }
+
+  hasConstructor = true;
+
+  getMethods(): any[] {
+    return [];
+  }
+}

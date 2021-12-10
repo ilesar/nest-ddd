@@ -7,6 +7,8 @@ export class File {
 
   private classDeclaration: any;
 
+  private interfaceDeclaration: any;
+
   private ctor: any;
 
   constructor(project: Project) {
@@ -39,7 +41,19 @@ export class File {
     });
   }
 
+  addInterface(name: string, extendsParams?: string[]) {
+    this.interfaceDeclaration = this.source.addInterface({
+      name: name,
+      extends: extendsParams,
+      isExported: true,
+    });
+  }
+
   addDecorators(decoratorDefinitions: any[]) {
+    if (decoratorDefinitions.length === 0) {
+      return;
+    }
+
     const decoratorDeclarations = Object.entries(decoratorDefinitions).map(
       ([decoratorName, decoratorArguments]) =>
         this.createDecoratorChunk(decoratorName, decoratorArguments),
@@ -50,7 +64,10 @@ export class File {
 
   addConstructor() {
     this.ctor = this.classDeclaration.addConstructor({});
-    this.ctor.addStatements('super({});');
+
+    if (!!this.classDeclaration.getBaseClass()) {
+      this.ctor.addStatements('super({});');
+    }
   }
 
   addMethods(methodDefinitions: any[]) {

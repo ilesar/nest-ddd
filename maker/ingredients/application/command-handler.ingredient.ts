@@ -25,6 +25,14 @@ export class CommandHandlerIngredient implements IngredientInterface {
     return 'TemplateCommandHandler<CreateSomethingCommand>';
   }
 
+  getInterfaceName(): string | undefined {
+    return;
+  }
+
+  getInterfaceExtends(): string[] | undefined {
+    return;
+  }
+
   hasConstructor = false;
 
   getMethods(): any[] {

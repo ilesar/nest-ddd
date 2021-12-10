@@ -8,10 +8,9 @@ import { EventWithHandlerRecipe } from './recipes/event-with-handler.recipe';
 
 (async () => {
   const maker = new MakerService();
+  let recipe: RecipeInterface;
 
   const commandName = await maker.getCommandName();
-
-  let recipe: RecipeInterface;
 
   switch (commandName) {
     case MakerCommand.Command:
@@ -30,5 +29,5 @@ import { EventWithHandlerRecipe } from './recipes/event-with-handler.recipe';
       throw new Error('Unknown maker command');
   }
 
-  recipe.execute();
+  maker.executeRecipe(recipe);
 })();

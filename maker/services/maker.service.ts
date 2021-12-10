@@ -1,6 +1,7 @@
 import { FileFactory } from '../helpers/file.factory';
 import * as inquirer from 'inquirer';
 import { MakerCommand } from '../enums/maker-command.enum';
+import { RecipeInterface } from '../interfaces/recipe.interface';
 
 export class MakerService {
   private fileFactory: FileFactory;
@@ -31,5 +32,9 @@ export class MakerService {
           }
         });
     });
+  }
+
+  executeRecipe(recipe: RecipeInterface) {
+    recipe.execute();
   }
 }

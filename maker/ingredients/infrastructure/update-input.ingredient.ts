@@ -1,6 +1,10 @@
 import { IngredientInterface } from '../../interfaces/ingredient.interface';
+import { BaseIngredient } from '../base.ingredient';
 
-export class UpdateInputIngredient implements IngredientInterface {
+export class UpdateInputIngredient
+  extends BaseIngredient
+  implements IngredientInterface
+{
   getFilePath(): string {
     return 'update-something.input.ts';
   }

@@ -1,6 +1,10 @@
 import { IngredientInterface } from '../../interfaces/ingredient.interface';
+import { BaseIngredient } from '../base.ingredient';
 
-export class EventHandlerIngredient implements IngredientInterface {
+export class EventHandlerIngredient
+  extends BaseIngredient
+  implements IngredientInterface
+{
   getFilePath(): string {
     return 'create-something.event-handler.ts';
   }

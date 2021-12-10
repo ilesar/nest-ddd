@@ -18,26 +18,6 @@ import { UpdateInputIngredient } from '../ingredients/infrastructure/update-inpu
 import { EntityIngredient } from '../ingredients/infrastructure/entity.ingredient';
 import { RepositoryIngredient } from '../ingredients/infrastructure/repository.ingredient';
 
-export class TestRecipe implements RecipeInterface {
-  execute(fileFactory: FileFactory): void {
-    fileFactory.createFileFromIngredient(new CommandIngredient());
-    fileFactory.createFileFromIngredient(new CommandHandlerIngredient());
-    fileFactory.createFileFromIngredient(new QueryIngredient());
-    fileFactory.createFileFromIngredient(new QueryHandlerIngredient());
-    fileFactory.createFileFromIngredient(new SubscriberIngredient());
-    fileFactory.createFileFromIngredient(new SubscriberHandlerIngredient());
-    fileFactory.createFileFromIngredient(new EventIngredient());
-    fileFactory.createFileFromIngredient(new EventHandlerIngredient());
-
-    fileFactory.createFileFromIngredient(new ModelIngredient());
-    fileFactory.createFileFromIngredient(new ServiceIngredient());
-    fileFactory.createFileFromIngredient(new RepositoryInterfaceIngredient());
-
-    fileFactory.createFileFromIngredient(new DtoIngredient());
-    fileFactory.createFileFromIngredient(new InputIngredient());
-    fileFactory.createFileFromIngredient(new CreateInputIngredient());
-    fileFactory.createFileFromIngredient(new UpdateInputIngredient());
-    fileFactory.createFileFromIngredient(new EntityIngredient());
-    fileFactory.createFileFromIngredient(new RepositoryIngredient());
-  }
+export class BoundedContextRecipe implements RecipeInterface {
+  execute(fileFactory: FileFactory): void {}
 }

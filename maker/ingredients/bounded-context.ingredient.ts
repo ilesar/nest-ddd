@@ -1,28 +1,29 @@
-import { IngredientInterface } from '../../interfaces/ingredient.interface';
-import { BaseIngredient } from '../base.ingredient';
+import { IngredientInterface } from '../interfaces/ingredient.interface';
+import { BaseIngredient } from './base.ingredient';
 
-export class ServiceIngredient
+export class DtoIngredient
   extends BaseIngredient
   implements IngredientInterface
 {
   getFilePath(): string {
-    return 'something-management.service.ts';
+    return 'something.bounded-context.ts';
   }
 
   getImports(): any {
     return {
-      '{ Injectable }': '@nestjs/common',
+      '{ InfrastructureLayer }': './infrastructure.layer.ts',
+      '{ BoundedContext }': '@core/decorators/bounded-context.decorator',
     };
   }
 
   getDecorators(): any {
     return {
-      'Injectable()': null,
+      BoundedContext: 'InfrastructureLayer',
     };
   }
 
   getClassName(): string {
-    return 'SomethingManagementService';
+    return 'SomethingBoundedContext';
   }
 
   getClassExtends(): string | undefined {
@@ -41,7 +42,7 @@ export class ServiceIngredient
     return;
   }
 
-  hasConstructor = true;
+  hasConstructor = false;
 
   getMethods(): any[] {
     return [];

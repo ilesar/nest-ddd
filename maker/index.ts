@@ -6,16 +6,21 @@ import { SubscriberWithHandlerRecipe } from './recipes/subscriber-with-handler.r
 import { EventWithHandlerRecipe } from './recipes/event-with-handler.recipe';
 import { RecipeInterface } from './interfaces/recipe.interface';
 import { TestRecipe } from './recipes/test.recipe';
+import { EntityRecipe } from './recipes/entity.recipe';
 
 (async () => {
   let recipe: RecipeInterface;
   const maker = new MakerService();
 
   const commandName = await maker.getCommandName();
+  const boundedContextName = await maker.getBoundedContext();
 
   switch (commandName) {
     case MakerCommand.Test:
       recipe = new TestRecipe();
+      break;
+    case MakerCommand.Entity:
+      recipe = new EntityRecipe();
       break;
     case MakerCommand.Command:
       recipe = new CommandWithHandlerRecipe();
@@ -33,5 +38,6 @@ import { TestRecipe } from './recipes/test.recipe';
       throw new Error('Unknown maker command');
   }
 
+  maker.bindToContext(boundedContextName);
   maker.executeRecipe(recipe);
 })();

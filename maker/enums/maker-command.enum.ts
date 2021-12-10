@@ -4,4 +4,5 @@ export enum MakerCommand {
   Subscriber = 'subscriber',
   Event = 'event',
   Test = 'test',
+  Entity = 'entity',
 }

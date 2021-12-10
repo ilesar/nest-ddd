@@ -1,8 +1,14 @@
 import { IngredientInterface } from '../../interfaces/ingredient.interface';
+import { BaseIngredient } from '../base.ingredient';
 
-export class CommandIngredient implements IngredientInterface {
+export class CommandIngredient
+  extends BaseIngredient
+  implements IngredientInterface
+{
+  private readonly LOCATION = `src/${this.boundedContext}/application/commands`;
+
   getFilePath(): string {
-    return 'create-something.command.ts';
+    return `${this.LOCATION}/${this.kebabName}.command.ts`;
   }
 
   getImports(): any {
@@ -16,7 +22,7 @@ export class CommandIngredient implements IngredientInterface {
   }
 
   getClassName(): string {
-    return 'CreateSomethingCommand';
+    return `${this.pascalName}Command`;
   }
 
   getClassExtends(): string {

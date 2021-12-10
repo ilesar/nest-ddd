@@ -1,28 +1,34 @@
 import { IngredientInterface } from '../../interfaces/ingredient.interface';
+import { BaseIngredient } from '../base.ingredient';
 
-export class CommandHandlerIngredient implements IngredientInterface {
+export class CommandHandlerIngredient
+  extends BaseIngredient
+  implements IngredientInterface
+{
+  private readonly LOCATION = `src/${this.boundedContext}/application/handlers/command`;
+
   getFilePath(): string {
-    return 'create-something.command-handler.ts';
+    return `${this.LOCATION}/${this.kebabName}.command-handler.ts`;
   }
 
   getImports(): any {
     return {
       '{ CommandHandler }': '@nestjs/cqrs',
-      '{ CreateSomethingCommand }': './create-something.command',
+      '{ CreateSomethingCommand }': `./../../commands/${this.kebabName}.command`,
       '{ TemplateCommandHandler }': '@core/templates/_template.command-handler',
     };
   }
 
   getDecorators(): any {
-    return { CommandHandler: ['CreateSomethingCommand'] };
+    return { CommandHandler: [`${this.pascalName}Command`] };
   }
 
   getClassName(): string {
-    return 'CreateSomethingCommandHandler';
+    return `${this.pascalName}CommandHandler`;
   }
 
   getClassExtends(): string {
-    return 'TemplateCommandHandler<CreateSomethingCommand>';
+    return `TemplateCommandHandler<${this.pascalName}Command>`;
   }
 
   getClassImplements(): string[] | undefined {
@@ -49,7 +55,7 @@ export class CommandHandlerIngredient implements IngredientInterface {
           parameters: [
             {
               name: 'command',
-              type: 'CreateSomethingCommand',
+              type: `${this.pascalName}Command`,
             },
           ],
         },

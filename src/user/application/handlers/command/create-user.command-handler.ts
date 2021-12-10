@@ -9,10 +9,7 @@ import { UserRepositoryInterface } from '@shared/domain/repositories/user-reposi
 import { Country } from '@shared/domain/models/country.model';
 
 @CommandHandler(CreateUserCommand)
-export class CreateUserCommandHandler
-  extends TemplateCommandHandler
-  implements ICommandHandler<CreateUserCommand>
-{
+export class CreateUserCommandHandler extends TemplateCommandHandler<CreateUserCommand> {
   constructor(
     @InjectRepository(CountryTypeormRepository)
     private userRepository: UserRepositoryInterface,

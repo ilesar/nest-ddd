@@ -1,4 +1,4 @@
-import { RepositoryInterface } from '@core/templates/_template-repository.interface';
+import { RepositoryInterface } from '@core/interfaces/repository.interface';
 import { Country } from '@shared/domain/models/country.model';
 
 export interface CountryRepositoryInterface

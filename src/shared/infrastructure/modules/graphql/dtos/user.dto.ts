@@ -3,7 +3,7 @@ import { IsEmail } from 'class-validator';
 import { TemplateDto } from '@core/templates/_template.dto';
 import { Relation } from '@nestjs-query/query-graphql';
 import { CountryDto } from './country.dto';
-import { Dto } from '@shared/infrastructure/modules/decorators/dto.decorator';
+import { Dto } from '@core/decorators/dto.decorator';
 import { UserRole } from '@shared/domain/enums/user-role.enum';
 
 @Dto(UserDto)

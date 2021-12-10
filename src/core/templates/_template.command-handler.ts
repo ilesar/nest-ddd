@@ -1,7 +1,13 @@
 import { NotFoundException } from '@nestjs/common';
 import { TemplateModel } from '@core/templates/_template.model';
+import { ICommandHandler } from '@nestjs/cqrs';
+import { TemplateCommand } from '@core/templates/_template.command';
 
-export abstract class TemplateCommandHandler {
+export abstract class TemplateCommandHandler<C extends TemplateCommand>
+  implements ICommandHandler<C>
+{
+  abstract execute(command: C): Promise<any>;
+
   protected async resolveModel<M extends TemplateModel>(
     repository: any,
     id: string,

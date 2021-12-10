@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
-import { TemplateDto } from '../../../../../core/templates/_template.dto';
-import { Dto } from '@shared/infrastructure/modules/decorators/dto.decorator';
+import { TemplateDto } from '@core/templates/_template.dto';
+import { Dto } from '@core/decorators/dto.decorator';
 
 @Dto(CountryDto)
 export class CountryDto extends TemplateDto {

@@ -1,6 +1,6 @@
 import { applyDecorators } from '@nestjs/common';
 import { InputType, ObjectType } from '@nestjs/graphql';
-import { GraphqlUtil } from '@shared/infrastructure/modules/graphql/utils/graphql.util';
+import { GraphqlUtil } from '@core/utils/graphql.util';
 
 export function Dto(dto: any, options?: { abstract?: boolean }) {
   return applyDecorators(

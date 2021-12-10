@@ -21,7 +21,7 @@
       "@root/*": ["./src/*"],
       "@core/*": ["./src/core/*"],
       "@shared/*": ["./src/shared/*"],
-      "@user/*": ["./src/user/*"]
+      "@user/*": ["./src/user/*"],
     }
   }
 }

@@ -10,15 +10,15 @@ export abstract class BaseIngredient {
     this.name = name;
   }
 
-  kebabName() {
+  kebabName(): string {
     return kebabCase(this.name);
   }
 
-  pascalName() {
+  pascalName(): string {
     return upperFirst(camelCase(this.name));
   }
 
-  camelName() {
+  camelName(): string {
     return camelCase(this.name);
   }
 }

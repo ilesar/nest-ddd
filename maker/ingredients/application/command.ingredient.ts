@@ -8,7 +8,7 @@ export class CommandIngredient
   private readonly LOCATION = `src/${this.boundedContext}/application/commands`;
 
   getFilePath(): string {
-    return `${this.LOCATION}/${this.kebabName}.command.ts`;
+    return `${this.LOCATION}/${this.kebabName()}.command.ts`;
   }
 
   getImports(): any {
@@ -22,7 +22,7 @@ export class CommandIngredient
   }
 
   getClassName(): string {
-    return `${this.pascalName}Command`;
+    return `${this.pascalName()}Command`;
   }
 
   getClassExtends(): string {

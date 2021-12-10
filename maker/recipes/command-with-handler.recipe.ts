@@ -4,12 +4,16 @@ import { RecipeInterface } from '../interfaces/recipe.interface';
 import { CommandHandlerIngredient } from '../ingredients/application/command-handler.ingredient';
 
 export class CommandWithHandlerRecipe implements RecipeInterface {
-  execute(fileFactory: FileFactory, boundedContext: string): void {
+  execute(
+    fileFactory: FileFactory,
+    name: string,
+    boundedContext: string,
+  ): void {
     fileFactory.createFileFromIngredient(
-      new CommandIngredient('create something', boundedContext),
+      new CommandIngredient(name, boundedContext),
     );
     fileFactory.createFileFromIngredient(
-      new CommandHandlerIngredient('create something', boundedContext),
+      new CommandHandlerIngredient(name, boundedContext),
     );
   }
 }

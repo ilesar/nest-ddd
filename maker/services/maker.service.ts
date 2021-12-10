@@ -4,17 +4,23 @@ import { MakerCommand } from '../enums/maker-command.enum';
 import { RecipeInterface } from '../interfaces/recipe.interface';
 
 export class MakerService {
-  private boundedContext;
+  private boundedContext: string;
 
-  bindToContext(boundedContextName: unknown) {
+  private name: string;
+
+  bindToContext(boundedContextName: string) {
     this.boundedContext = boundedContextName;
   }
 
-  executeRecipe(recipe: RecipeInterface) {
-    recipe.execute(new FileFactory(), this.boundedContext);
+  setName(name: string) {
+    this.name = name;
   }
 
-  async getBoundedContext() {
+  executeRecipe(recipe: RecipeInterface) {
+    recipe.execute(new FileFactory(), this.name, this.boundedContext);
+  }
+
+  async getBoundedContext(): Promise<string> {
     return new Promise((resolve, reject) => {
       inquirer
         .prompt([
@@ -37,7 +43,7 @@ export class MakerService {
     });
   }
 
-  public async getCommandName(): Promise<MakerCommand> {
+  public async getMakerCommandName(): Promise<MakerCommand> {
     return new Promise((resolve, reject) => {
       inquirer
         .prompt([
@@ -45,9 +51,9 @@ export class MakerService {
             type: 'list',
             name: 'maker_command',
             choices: [
+              MakerCommand.Command,
               MakerCommand.Test,
               MakerCommand.Entity,
-              MakerCommand.Command,
               MakerCommand.Query,
               MakerCommand.Subscriber,
               MakerCommand.Event,
@@ -56,6 +62,28 @@ export class MakerService {
         ])
         .then((answers) => {
           resolve(answers['maker_command']);
+        })
+        .catch((error) => {
+          if (error.isTtyError) {
+            throw new Error('Question cannot be rendered!');
+          } else {
+            reject(error);
+          }
+        });
+    });
+  }
+
+  async getCommandName(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      inquirer
+        .prompt([
+          {
+            type: 'input',
+            name: 'command',
+          },
+        ])
+        .then((answers) => {
+          resolve(answers['command']);
         })
         .catch((error) => {
           if (error.isTtyError) {

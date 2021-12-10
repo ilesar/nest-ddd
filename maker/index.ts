@@ -12,10 +12,10 @@ import { EntityRecipe } from './recipes/entity.recipe';
   let recipe: RecipeInterface;
   const maker = new MakerService();
 
-  const commandName = await maker.getCommandName();
+  const makerCommand = await maker.getMakerCommandName();
   const boundedContextName = await maker.getBoundedContext();
 
-  switch (commandName) {
+  switch (makerCommand) {
     case MakerCommand.Test:
       recipe = new TestRecipe();
       break;
@@ -23,6 +23,8 @@ import { EntityRecipe } from './recipes/entity.recipe';
       recipe = new EntityRecipe();
       break;
     case MakerCommand.Command:
+      maker.setName(await maker.getCommandName());
+
       recipe = new CommandWithHandlerRecipe();
       break;
     case MakerCommand.Query:

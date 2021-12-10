@@ -8,27 +8,27 @@ export class CommandHandlerIngredient
   private readonly LOCATION = `src/${this.boundedContext}/application/handlers/command`;
 
   getFilePath(): string {
-    return `${this.LOCATION}/${this.kebabName}.command-handler.ts`;
+    return `${this.LOCATION}/${this.kebabName()}.command-handler.ts`;
   }
 
   getImports(): any {
     return {
       '{ CommandHandler }': '@nestjs/cqrs',
-      '{ CreateSomethingCommand }': `./../../commands/${this.kebabName}.command`,
+      [`{ ${this.pascalName()}Command }`]: `./../../commands/${this.kebabName()}.command`,
       '{ TemplateCommandHandler }': '@core/templates/_template.command-handler',
     };
   }
 
   getDecorators(): any {
-    return { CommandHandler: [`${this.pascalName}Command`] };
+    return { CommandHandler: [`${this.pascalName()}Command`] };
   }
 
   getClassName(): string {
-    return `${this.pascalName}CommandHandler`;
+    return `${this.pascalName()}CommandHandler`;
   }
 
   getClassExtends(): string {
-    return `TemplateCommandHandler<${this.pascalName}Command>`;
+    return `TemplateCommandHandler<${this.pascalName()}Command>`;
   }
 
   getClassImplements(): string[] | undefined {
@@ -55,7 +55,7 @@ export class CommandHandlerIngredient
           parameters: [
             {
               name: 'command',
-              type: `${this.pascalName}Command`,
+              type: `${this.pascalName()}Command`,
             },
           ],
         },

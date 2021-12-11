@@ -1,7 +1,9 @@
 import { IndentationText, Project, QuoteKind } from 'ts-morph';
 import { IngredientInterface } from '../interfaces/ingredient.interface';
-import { File } from './file.builder';
+import { FileBuilder } from './file.builder';
 import * as chalk from 'chalk';
+import { ConnectionInterface } from '../interfaces/connection.interface';
+import { camelCase, upperFirst } from 'lodash';
 
 export class FileFactory {
   private readonly project: Project;
@@ -17,31 +19,31 @@ export class FileFactory {
   }
 
   createFileFromIngredient(ingredient: IngredientInterface) {
-    const file = new File(this.project);
+    const fileBuilder = new FileBuilder(this.project);
 
-    console.log(`Creating ${chalk.bold(ingredient.getClassName())}...`);
-    file.createSource(ingredient.getFilePath());
+    console.log(`Creating ${chalk.whiteBright(ingredient.getClassName())}...`);
+    fileBuilder.createSource(ingredient.getFilePath());
     console.log(chalk.grey(`Adding imports...`));
-    file.addImports(ingredient.getImports());
+    fileBuilder.addImports(ingredient.getImports());
 
     if (ingredient.getClassName()) {
       console.log(chalk.grey(`Creating class...`));
-      file.addClass(
+      fileBuilder.addClass(
         ingredient.getClassName(),
         ingredient.getClassExtends(),
         ingredient.getClassImplements(),
       );
 
       console.log(chalk.grey(`Adding decorators...`));
-      file.addDecorators(ingredient.getDecorators());
+      fileBuilder.addDecorators(ingredient.getDecorators());
 
       if (ingredient.hasConstructor) {
         console.log(chalk.grey(`Adding constructor...`));
-        file.addConstructor();
+        fileBuilder.addConstructor();
       }
 
       console.log(chalk.grey(`Adding class methods...`));
-      file.addMethods(ingredient.getMethods());
+      fileBuilder.addMethods(ingredient.getMethods());
     }
 
     if (ingredient.getInterfaceName()) {
@@ -52,13 +54,26 @@ export class FileFactory {
       }
 
       console.log(chalk.grey(`Adding interface...`));
-      file.addInterface(
+      fileBuilder.addInterface(
         ingredient.getInterfaceName(),
         ingredient.getInterfaceExtends(),
       );
     }
 
     console.log(chalk.grey(`Saving file...`));
-    file.save();
+    fileBuilder.save();
+    console.log(chalk.grey(`Ingredient added successfully!`));
+  }
+
+  updateFilesFromConnection(connection: ConnectionInterface) {
+    console.log(
+      `Applying ${chalk.whiteBright(
+        upperFirst(camelCase(connection.constructor.name)),
+      )}...`,
+    );
+    console.log(chalk.grey(`Binding connection to project...`));
+    connection.bindProject(this.project);
+    console.log(chalk.grey(`Wiring up connection...`));
+    connection.wireUp();
   }
 }

@@ -11,4 +11,8 @@ export interface IngredientInterface {
   getDecorators(): any;
   getMethods(): any;
   hasConstructor: boolean;
+
+  kebabName(): string;
+  pascalName(): string;
+  camelName(): string;
 }

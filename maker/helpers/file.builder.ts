@@ -1,6 +1,6 @@
 import { Project } from 'ts-morph';
 
-export class File {
+export class FileBuilder {
   private project: Project;
 
   private source: any;

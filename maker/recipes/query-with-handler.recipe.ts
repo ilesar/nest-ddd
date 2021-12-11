@@ -1,19 +1,18 @@
 import { RecipeInterface } from '../interfaces/recipe.interface';
-import { FileFactory } from '../helpers/file.factory';
 import { QueryIngredient } from '../ingredients/application/query.ingredient';
 import { QueryHandlerIngredient } from '../ingredients/application/query-handler.ingredient';
+import { BaseRecipe } from './base.recipe';
 
-export class QueryWithHandlerRecipe implements RecipeInterface {
-  execute(
-    fileFactory: FileFactory,
-    name: string,
-    boundedContext: string,
-  ): void {
-    fileFactory.createFileFromIngredient(
-      new QueryIngredient(name, boundedContext),
+export class QueryWithHandlerRecipe
+  extends BaseRecipe
+  implements RecipeInterface
+{
+  execute(): void {
+    this.fileFactory.createFileFromIngredient(
+      new QueryIngredient(this.name, this.boundedContext),
     );
-    fileFactory.createFileFromIngredient(
-      new QueryHandlerIngredient(name, boundedContext),
+    this.fileFactory.createFileFromIngredient(
+      new QueryHandlerIngredient(this.name, this.boundedContext),
     );
   }
 }

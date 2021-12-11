@@ -1,4 +1,3 @@
-import { FileFactory } from '../helpers/file.factory';
 import * as inquirer from 'inquirer';
 import { RecipeName } from '../enums/maker-command.enum';
 import { RecipeInterface } from '../interfaces/recipe.interface';
@@ -7,21 +6,16 @@ import * as chalk from 'chalk';
 export class MakerService {
   private boundedContext: string;
 
-  private name: string;
-
   bindToContext(boundedContextName: string) {
-    console.log(chalk.grey('Binding recipe to context...'));
+    console.log('Binding recipe to context...');
     this.boundedContext = boundedContextName;
   }
 
-  setName(name: string) {
-    this.name = name;
-  }
-
   executeRecipe(recipe: RecipeInterface) {
-    console.log(chalk.grey(`Executing recipe ${recipe.constructor.name}...`));
-    recipe.execute(new FileFactory(), this.name, this.boundedContext);
-    console.log(chalk.green('Recipe executed successfully!'));
+    console.log(`Preparing recipe ${recipe.constructor.name}...`);
+    recipe.execute();
+    console.log('----------------------------');
+    console.log(chalk.bold.green('Recipe executed successfully!'));
   }
 
   public async getRecipeName(): Promise<RecipeName> {

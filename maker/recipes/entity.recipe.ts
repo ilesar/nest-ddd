@@ -1,4 +1,3 @@
-import { FileFactory } from '../helpers/file.factory';
 import { RecipeInterface } from '../interfaces/recipe.interface';
 import { EntityIngredient } from '../ingredients/infrastructure/entity.ingredient';
 import { ModelIngredient } from '../ingredients/domain/model.ingredient';
@@ -8,36 +7,33 @@ import { InputIngredient } from '../ingredients/infrastructure/input.ingredient'
 import { CreateInputIngredient } from '../ingredients/infrastructure/create-input.ingredient';
 import { UpdateInputIngredient } from '../ingredients/infrastructure/update-input.ingredient';
 import { RepositoryIngredient } from '../ingredients/infrastructure/repository.ingredient';
+import { BaseRecipe } from './base.recipe';
 
-export class EntityRecipe implements RecipeInterface {
-  execute(
-    fileFactory: FileFactory,
-    name: string,
-    boundedContext: string,
-  ): void {
-    fileFactory.createFileFromIngredient(
-      new ModelIngredient(name, boundedContext),
+export class EntityRecipe extends BaseRecipe implements RecipeInterface {
+  execute(): void {
+    this.fileFactory.createFileFromIngredient(
+      new ModelIngredient(this.name, this.boundedContext),
     );
-    fileFactory.createFileFromIngredient(
-      new RepositoryInterfaceIngredient(name, boundedContext),
+    this.fileFactory.createFileFromIngredient(
+      new RepositoryInterfaceIngredient(this.name, this.boundedContext),
     );
-    fileFactory.createFileFromIngredient(
-      new DtoIngredient(name, boundedContext),
+    this.fileFactory.createFileFromIngredient(
+      new DtoIngredient(this.name, this.boundedContext),
     );
-    fileFactory.createFileFromIngredient(
-      new InputIngredient(name, boundedContext),
+    this.fileFactory.createFileFromIngredient(
+      new InputIngredient(this.name, this.boundedContext),
     );
-    fileFactory.createFileFromIngredient(
-      new CreateInputIngredient(name, boundedContext),
+    this.fileFactory.createFileFromIngredient(
+      new CreateInputIngredient(this.name, this.boundedContext),
     );
-    fileFactory.createFileFromIngredient(
-      new UpdateInputIngredient(name, boundedContext),
+    this.fileFactory.createFileFromIngredient(
+      new UpdateInputIngredient(this.name, this.boundedContext),
     );
-    fileFactory.createFileFromIngredient(
-      new EntityIngredient(name, boundedContext),
+    this.fileFactory.createFileFromIngredient(
+      new EntityIngredient(this.name, this.boundedContext),
     );
-    fileFactory.createFileFromIngredient(
-      new RepositoryIngredient(name, boundedContext),
+    this.fileFactory.createFileFromIngredient(
+      new RepositoryIngredient(this.name, this.boundedContext),
     );
   }
 }

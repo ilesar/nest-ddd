@@ -4,13 +4,12 @@ import { CommandWithHandlerRecipe } from './recipes/command-with-handler.recipe'
 import { QueryWithHandlerRecipe } from './recipes/query-with-handler.recipe';
 import { SubscriberWithHandlerRecipe } from './recipes/subscriber-with-handler.recipe';
 import { EventWithHandlerRecipe } from './recipes/event-with-handler.recipe';
-import { RecipeInterface } from './interfaces/recipe.interface';
 import { TestRecipe } from './recipes/test.recipe';
 import { EntityRecipe } from './recipes/entity.recipe';
-import * as chalk from 'chalk';
+import { FileFactory } from './helpers/file.factory';
 
 (async () => {
-  let recipe: RecipeInterface;
+  let recipeClass;
   const maker = new MakerService();
 
   console.log(`
@@ -27,32 +26,34 @@ import * as chalk from 'chalk';
 
   switch (recipeName) {
     case RecipeName.Test:
-      recipe = new TestRecipe();
+      recipeClass = TestRecipe;
       break;
     case RecipeName.Entity:
-      recipe = new EntityRecipe();
+      recipeClass = EntityRecipe;
       break;
     case RecipeName.Command:
-      maker.setName(await maker.getCommandName());
-      recipe = new CommandWithHandlerRecipe();
+      recipeClass = CommandWithHandlerRecipe;
       break;
     case RecipeName.Query:
-      maker.setName(await maker.getCommandName());
-      recipe = new QueryWithHandlerRecipe();
+      recipeClass = QueryWithHandlerRecipe;
       break;
     case RecipeName.Subscriber:
-      maker.setName(await maker.getCommandName());
-      recipe = new SubscriberWithHandlerRecipe();
+      recipeClass = SubscriberWithHandlerRecipe;
       break;
     case RecipeName.Event:
-      maker.setName(await maker.getCommandName());
-      recipe = new EventWithHandlerRecipe();
+      recipeClass = EventWithHandlerRecipe;
       break;
     default:
       throw new Error('Unknown maker command');
   }
 
+  const name = await maker.getCommandName();
+
+  const recipe = new recipeClass(boundedContextName);
+  recipe.setName(name);
+
   console.log('--------------------------------');
+  console.log('Setting up...');
   maker.bindToContext(boundedContextName);
   maker.executeRecipe(recipe);
 })();

@@ -1,19 +1,25 @@
-import { FileFactory } from '../helpers/file.factory';
 import { CommandIngredient } from '../ingredients/application/command.ingredient';
 import { RecipeInterface } from '../interfaces/recipe.interface';
 import { CommandHandlerIngredient } from '../ingredients/application/command-handler.ingredient';
+import { BaseRecipe } from './base.recipe';
+import { AddCommandToApplicationLayerConnection } from '../connections/add-command-to-application-layer.connection';
 
-export class CommandWithHandlerRecipe implements RecipeInterface {
-  execute(
-    fileFactory: FileFactory,
-    name: string,
-    boundedContext: string,
-  ): void {
-    fileFactory.createFileFromIngredient(
-      new CommandIngredient(name, boundedContext),
+export class CommandWithHandlerRecipe
+  extends BaseRecipe
+  implements RecipeInterface
+{
+  execute(): void {
+    this.fileFactory.createFileFromIngredient(
+      new CommandIngredient(this.name, this.boundedContext),
     );
-    fileFactory.createFileFromIngredient(
-      new CommandHandlerIngredient(name, boundedContext),
+    this.fileFactory.createFileFromIngredient(
+      new CommandHandlerIngredient(this.name, this.boundedContext),
+    );
+    this.fileFactory.updateFilesFromConnection(
+      new AddCommandToApplicationLayerConnection(
+        this.name,
+        this.boundedContext,
+      ),
     );
   }
 }

@@ -13,6 +13,6 @@ export interface ApplicationConfigInterface {
   repositories: any[];
   validators: any[];
   services: any[];
-  subscribers: any[];
+  subscriberHandlers: any[];
   providers?: any[];
 }

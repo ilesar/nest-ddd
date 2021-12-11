@@ -6,7 +6,7 @@ export const applicationConfig: ApplicationConfigInterface = {
   commandHandlers: [],
   queryHandlers: [],
   eventHandlers: [],
-  subscribers: [],
+  subscriberHandlers: [],
   repositories: [],
   validators: [],
   services: [],

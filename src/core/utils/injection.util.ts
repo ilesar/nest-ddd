@@ -34,7 +34,7 @@ export class InjectionUtil {
         ...applicationConfig.queryHandlers,
         ...applicationConfig.eventHandlers,
         ...applicationConfig.validators,
-        ...applicationConfig.subscribers,
+        ...applicationConfig.subscriberHandlers,
         ...applicationConfig.services.map((service) =>
           this.injectCustomService(service),
         ),

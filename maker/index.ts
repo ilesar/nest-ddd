@@ -1,15 +1,39 @@
 import { MakerService } from './services/maker.service';
-import { RecipeName } from './enums/maker-command.enum';
+import { RecipeName } from './enums/recipe-name.enum';
 import { CommandWithHandlerRecipe } from './recipes/command-with-handler.recipe';
 import { QueryWithHandlerRecipe } from './recipes/query-with-handler.recipe';
 import { SubscriberWithHandlerRecipe } from './recipes/subscriber-with-handler.recipe';
 import { EventWithHandlerRecipe } from './recipes/event-with-handler.recipe';
-import { TestRecipe } from './recipes/test.recipe';
 import { EntityWithApiRecipe } from './recipes/entity-with-api.recipe';
-import { FileFactory } from './helpers/file.factory';
+
+const RECIPES = {
+  // [RecipeName.CreateBoundedContext]: EntityWithApiRecipe,
+
+  [RecipeName.CreateEntityWithApi]: EntityWithApiRecipe,
+
+  // [RecipeName.CreateGraphQlQuery]: EventWithHandlerRecipe,
+  // [RecipeName.CreateGraphQlMutation]: EventWithHandlerRecipe,
+  // [RecipeName.CreateGraphQlSubscription]: EventWithHandlerRecipe,
+
+  // [RecipeName.OverrideCreate]: EventWithHandlerRecipe,
+  // [RecipeName.OverrideRead]: EventWithHandlerRecipe,
+  // [RecipeName.OverrideUpdate]: EventWithHandlerRecipe,
+  // [RecipeName.OverrideDelete]: EventWithHandlerRecipe,
+  // [RecipeName.OverrideCreateMany]: EventWithHandlerRecipe,
+  // [RecipeName.OverrideReadMany]: EventWithHandlerRecipe,
+  // [RecipeName.OverrideUpdateMany]: EventWithHandlerRecipe,
+  // [RecipeName.OverrideDeleteMany]: EventWithHandlerRecipe,
+
+  [RecipeName.CreateCommand]: CommandWithHandlerRecipe,
+  [RecipeName.CreateQuery]: QueryWithHandlerRecipe,
+  [RecipeName.CreateSubscriber]: SubscriberWithHandlerRecipe,
+  [RecipeName.CreateEvent]: EventWithHandlerRecipe,
+
+  // [RecipeName.CreateModel]: EventWithHandlerRecipe,
+  // [RecipeName.CreateService]: EventWithHandlerRecipe,
+};
 
 (async () => {
-  let recipeClass;
   const maker = new MakerService();
 
   console.log(`
@@ -21,36 +45,22 @@ import { FileFactory } from './helpers/file.factory';
   console.log('Code Generator');
   console.log('--------------------------------');
 
-  const recipeName = await maker.getRecipeName();
-  const boundedContextName = await maker.getBoundedContext();
+  const recipeCategoryName = await maker.getRecipeCategoryName();
+  const recipeSubcategoryName = await maker.getRecipeSubcategoryName(
+    recipeCategoryName,
+  );
+  const recipeName = await maker.getRecipeName(recipeSubcategoryName);
+  const recipeClass = RECIPES[recipeName];
 
-  switch (recipeName) {
-    case RecipeName.Test:
-      recipeClass = TestRecipe;
-      break;
-    case RecipeName.Entity:
-      recipeClass = EntityWithApiRecipe;
-      break;
-    case RecipeName.Command:
-      recipeClass = CommandWithHandlerRecipe;
-      break;
-    case RecipeName.Query:
-      recipeClass = QueryWithHandlerRecipe;
-      break;
-    case RecipeName.Subscriber:
-      recipeClass = SubscriberWithHandlerRecipe;
-      break;
-    case RecipeName.Event:
-      recipeClass = EventWithHandlerRecipe;
-      break;
-    default:
-      throw new Error('Unknown maker command');
+  if (!recipeClass) {
+    throw new Error('Maker command not attached');
   }
 
-  const name = await maker.getCommandName();
-
+  const boundedContextName = await maker.getBoundedContext();
   const recipe = new recipeClass(boundedContextName);
-  recipe.setName(name);
+
+  const nameInput = await maker.getInput();
+  recipe.setName(nameInput);
 
   console.log('--------------------------------');
   console.log('Setting up...');

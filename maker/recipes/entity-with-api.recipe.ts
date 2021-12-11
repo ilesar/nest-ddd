@@ -2,9 +2,8 @@ import { RecipeInterface } from '../interfaces/recipe.interface';
 import { EntityIngredient } from '../ingredients/infrastructure/entity.ingredient';
 import { ModelIngredient } from '../ingredients/domain/model.ingredient';
 import { DtoIngredient } from '../ingredients/infrastructure/dto.ingredient';
-import { InputIngredient } from '../ingredients/infrastructure/input.ingredient';
 import { BaseRecipe } from './base.recipe';
-import inquirer from 'inquirer';
+import * as inquirer from 'inquirer';
 
 export class EntityWithApiRecipe extends BaseRecipe implements RecipeInterface {
   async execute(): Promise<void> {

@@ -5,8 +5,10 @@ export class ModelIngredient
   extends BaseIngredient
   implements IngredientInterface
 {
+  private readonly LOCATION = `src/shared/domain/models`;
+
   getFilePath(): string {
-    return 'something.model.ts';
+    return `${this.LOCATION}/${this.kebabName()}.model.ts`;
   }
 
   getImports(): any {
@@ -20,7 +22,7 @@ export class ModelIngredient
   }
 
   getClassName(): string {
-    return 'Something';
+    return `${this.pascalName()}`;
   }
 
   getClassExtends(): string {

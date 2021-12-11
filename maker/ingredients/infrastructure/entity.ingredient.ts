@@ -5,8 +5,10 @@ export class EntityIngredient
   extends BaseIngredient
   implements IngredientInterface
 {
+  private readonly LOCATION = `src/shared/infrastructure/modules/database/entities`;
+
   getFilePath(): string {
-    return 'something.entity.ts';
+    return `${this.LOCATION}/${this.kebabName()}.entity.ts`;
   }
 
   getImports(): any {
@@ -20,14 +22,14 @@ export class EntityIngredient
     return {
       Entity: [
         () => {
-          return { name: 'something' };
+          return { name: this.snakeName() };
         },
       ],
     };
   }
 
   getClassName(): string {
-    return 'SomethingEntity';
+    return `${this.pascalName()}Entity`;
   }
 
   getClassExtends(): string {

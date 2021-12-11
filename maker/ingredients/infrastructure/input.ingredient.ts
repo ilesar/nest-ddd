@@ -5,14 +5,16 @@ export class InputIngredient
   extends BaseIngredient
   implements IngredientInterface
 {
+  private readonly LOCATION = `src/shared/infrastructure/modules/graphql/inputs/base`;
+
   getFilePath(): string {
-    return 'something.input.ts';
+    return `${this.LOCATION}/${this.kebabName()}.input.ts`;
   }
 
   getImports(): any {
     return {
       '{ InputType, PickType }': '@nestjs/graphql',
-      '{ SomethingDto }': './something.dto',
+      '{ SomethingDto }': `./../../dtos/${this.kebabName()}.dto`,
     };
   }
 
@@ -27,11 +29,11 @@ export class InputIngredient
   }
 
   getClassName(): string {
-    return 'SomethingInput';
+    return `${this.pascalName()}Input`;
   }
 
   getClassExtends(): string {
-    return `PickType(SomethingDto, [
+    return `PickType(${this.pascalName()}Dto, [
   'id',
   'createdAt',
   'updatedAt',

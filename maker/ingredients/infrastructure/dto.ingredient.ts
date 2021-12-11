@@ -5,8 +5,10 @@ export class DtoIngredient
   extends BaseIngredient
   implements IngredientInterface
 {
+  private readonly LOCATION = `src/shared/infrastructure/modules/graphql/dtos`;
+
   getFilePath(): string {
-    return 'something.dto.ts';
+    return `${this.LOCATION}/${this.kebabName()}.dto.ts`;
   }
 
   getImports(): any {
@@ -18,12 +20,12 @@ export class DtoIngredient
 
   getDecorators(): any {
     return {
-      Dto: 'SomethingDto',
+      Dto: `${this.pascalName()}Dto`,
     };
   }
 
   getClassName(): string {
-    return 'SomethingDto';
+    return `${this.pascalName()}Dto`;
   }
 
   getClassExtends(): string {

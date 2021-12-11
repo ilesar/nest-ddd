@@ -11,9 +11,9 @@ export class MakerService {
     this.boundedContext = boundedContextName;
   }
 
-  executeRecipe(recipe: RecipeInterface) {
+  async executeRecipe(recipe: RecipeInterface) {
     console.log(`Preparing recipe ${recipe.constructor.name}...`);
-    recipe.execute();
+    await recipe.execute();
     console.log('----------------------------');
     console.log(chalk.bold.green('Recipe executed successfully!'));
   }

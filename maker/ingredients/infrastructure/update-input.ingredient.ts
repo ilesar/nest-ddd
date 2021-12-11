@@ -5,8 +5,10 @@ export class UpdateInputIngredient
   extends BaseIngredient
   implements IngredientInterface
 {
+  private readonly LOCATION = `src/shared/infrastructure/modules/graphql/inputs/update`;
+
   getFilePath(): string {
-    return 'update-something.input.ts';
+    return `${this.LOCATION}/update-${this.kebabName()}.input.ts`;
   }
 
   getImports(): any {
@@ -17,7 +19,7 @@ export class UpdateInputIngredient
   IntersectionType,
   PickType,
 }`]: '@nestjs/graphql',
-      '{ CreateSomethingInput }': './create-something.input',
+      [`{ Create${this.pascalName()}Input }`]: `./create-${this.kebabName()}.input`,
       '{ TemplateDto }': '@core/templates/_template.dto',
     };
   }
@@ -29,14 +31,14 @@ export class UpdateInputIngredient
   }
 
   getClassName(): string {
-    return 'UpdateSomethingInput';
+    return `Update${this.pascalName()}Input`;
   }
 
   getClassExtends(): string {
     return `IntersectionType(
 PickType(TemplateDto, ['id'] as const),
 PartialType(
-  PickType(CreateSomethingInput, [
+  PickType(Create${this.pascalName()}Input, [
     /* updateable properties here */
   ] as const),
 ),

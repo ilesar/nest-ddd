@@ -5,7 +5,7 @@ import { QueryWithHandlerRecipe } from './recipes/query-with-handler.recipe';
 import { SubscriberWithHandlerRecipe } from './recipes/subscriber-with-handler.recipe';
 import { EventWithHandlerRecipe } from './recipes/event-with-handler.recipe';
 import { TestRecipe } from './recipes/test.recipe';
-import { EntityRecipe } from './recipes/entity.recipe';
+import { EntityWithApiRecipe } from './recipes/entity-with-api.recipe';
 import { FileFactory } from './helpers/file.factory';
 
 (async () => {
@@ -29,7 +29,7 @@ import { FileFactory } from './helpers/file.factory';
       recipeClass = TestRecipe;
       break;
     case RecipeName.Entity:
-      recipeClass = EntityRecipe;
+      recipeClass = EntityWithApiRecipe;
       break;
     case RecipeName.Command:
       recipeClass = CommandWithHandlerRecipe;
@@ -55,5 +55,5 @@ import { FileFactory } from './helpers/file.factory';
   console.log('--------------------------------');
   console.log('Setting up...');
   maker.bindToContext(boundedContextName);
-  maker.executeRecipe(recipe);
+  await maker.executeRecipe(recipe);
 })();

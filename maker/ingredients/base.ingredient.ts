@@ -1,4 +1,4 @@
-import { camelCase, kebabCase, upperFirst } from 'lodash';
+import { camelCase, kebabCase, upperFirst, snakeCase } from 'lodash';
 
 export abstract class BaseIngredient {
   protected readonly boundedContext: string;
@@ -20,5 +20,9 @@ export abstract class BaseIngredient {
 
   camelName(): string {
     return camelCase(this.name);
+  }
+
+  snakeName(): string {
+    return snakeCase(this.name);
   }
 }

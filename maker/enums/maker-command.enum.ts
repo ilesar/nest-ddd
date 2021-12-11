@@ -1,8 +1,8 @@
-export enum MakerCommand {
-  Command = 'command',
-  Query = 'query',
-  Subscriber = 'subscriber',
-  Event = 'event',
+export enum RecipeName {
+  Command = 'Command',
+  Query = 'Query',
+  Subscriber = 'Subscriber',
+  Event = 'Event',
   Test = 'test',
   Entity = 'entity',
 }

@@ -5,7 +5,7 @@ export abstract class BaseIngredient {
 
   protected readonly name: string;
 
-  constructor(name?: string, boundedContext?: string) {
+  constructor(name: string, boundedContext: string) {
     this.boundedContext = boundedContext;
     this.name = name;
   }

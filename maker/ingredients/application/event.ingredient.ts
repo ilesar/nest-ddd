@@ -5,8 +5,10 @@ export class EventIngredient
   extends BaseIngredient
   implements IngredientInterface
 {
+  private readonly LOCATION = `src/${this.boundedContext}/application/events`;
+
   getFilePath(): string {
-    return 'create-something.event.ts';
+    return `${this.LOCATION}/${this.kebabName()}.event.ts`;
   }
 
   getImports(): any {
@@ -20,7 +22,7 @@ export class EventIngredient
   }
 
   getClassName(): string {
-    return 'CreateSomethingEvent';
+    return `${this.pascalName()}Event`;
   }
 
   getClassExtends(): string {

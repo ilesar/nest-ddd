@@ -5,28 +5,30 @@ export class QueryHandlerIngredient
   extends BaseIngredient
   implements IngredientInterface
 {
+  private readonly LOCATION = `src/${this.boundedContext}/application/handlers/query`;
+
   getFilePath(): string {
-    return 'something.query-handler.ts';
+    return `${this.LOCATION}/${this.kebabName()}.query-handler.ts`;
   }
 
   getImports(): any {
     return {
       '{ QueryHandler }': '@nestjs/cqrs',
-      '{ SomethingQuery }': './something.query',
+      [`{ ${this.pascalName()}Query }`]: `./../../queries/${this.kebabName()}.query`,
       '{ TemplateQueryHandler }': '@core/templates/_template.query-handler',
     };
   }
 
   getDecorators(): any {
-    return { QueryHandler: ['SomethingQuery'] };
+    return { QueryHandler: [`${this.pascalName()}Query`] };
   }
 
   getClassName(): string {
-    return 'SomethingQueryHandler';
+    return `${this.pascalName()}QueryHandler`;
   }
 
   getClassExtends(): string {
-    return 'TemplateQueryHandler<SomethingQuery>';
+    return `TemplateQueryHandler<${this.pascalName()}Query>`;
   }
 
   getClassImplements(): string[] | undefined {
@@ -53,7 +55,7 @@ export class QueryHandlerIngredient
           parameters: [
             {
               name: 'query',
-              type: 'SomethingQuery',
+              type: `${this.pascalName()}Query`,
             },
           ],
         },

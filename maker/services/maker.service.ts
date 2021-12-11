@@ -1,7 +1,8 @@
 import { FileFactory } from '../helpers/file.factory';
 import * as inquirer from 'inquirer';
-import { MakerCommand } from '../enums/maker-command.enum';
+import { RecipeName } from '../enums/maker-command.enum';
 import { RecipeInterface } from '../interfaces/recipe.interface';
+import * as chalk from 'chalk';
 
 export class MakerService {
   private boundedContext: string;
@@ -9,6 +10,7 @@ export class MakerService {
   private name: string;
 
   bindToContext(boundedContextName: string) {
+    console.log(chalk.grey('Binding recipe to context...'));
     this.boundedContext = boundedContextName;
   }
 
@@ -17,21 +19,32 @@ export class MakerService {
   }
 
   executeRecipe(recipe: RecipeInterface) {
+    console.log(chalk.grey(`Executing recipe ${recipe.constructor.name}...`));
     recipe.execute(new FileFactory(), this.name, this.boundedContext);
+    console.log(chalk.green('Recipe executed successfully!'));
   }
 
-  async getBoundedContext(): Promise<string> {
+  public async getRecipeName(): Promise<RecipeName> {
     return new Promise((resolve, reject) => {
       inquirer
         .prompt([
           {
             type: 'list',
-            name: 'bounded_context',
-            choices: ['user', 'shared'],
+            message: 'What do you want to create?',
+            name: 'recipe',
+            loop: false,
+            choices: [
+              RecipeName.Command,
+              RecipeName.Query,
+              RecipeName.Subscriber,
+              RecipeName.Event,
+              // MakerCommand.Entity,
+              // MakerCommand.Test,
+            ],
           },
         ])
         .then((answers) => {
-          resolve(answers['bounded_context']);
+          resolve(answers['recipe']);
         })
         .catch((error) => {
           if (error.isTtyError) {
@@ -43,25 +56,20 @@ export class MakerService {
     });
   }
 
-  public async getMakerCommandName(): Promise<MakerCommand> {
+  async getBoundedContext(): Promise<string> {
     return new Promise((resolve, reject) => {
       inquirer
         .prompt([
           {
             type: 'list',
-            name: 'maker_command',
-            choices: [
-              MakerCommand.Command,
-              MakerCommand.Test,
-              MakerCommand.Entity,
-              MakerCommand.Query,
-              MakerCommand.Subscriber,
-              MakerCommand.Event,
-            ],
+            message: 'Which bounded context will it belong to?',
+            name: 'context',
+            loop: false,
+            choices: ['user'],
           },
         ])
         .then((answers) => {
-          resolve(answers['maker_command']);
+          resolve(answers['context']);
         })
         .catch((error) => {
           if (error.isTtyError) {
@@ -79,11 +87,12 @@ export class MakerService {
         .prompt([
           {
             type: 'input',
-            name: 'command',
+            message: 'How do you want to call it?',
+            name: 'name',
           },
         ])
         .then((answers) => {
-          resolve(answers['command']);
+          resolve(answers['name']);
         })
         .catch((error) => {
           if (error.isTtyError) {

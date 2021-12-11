@@ -10,14 +10,34 @@ import { UpdateInputIngredient } from '../ingredients/infrastructure/update-inpu
 import { RepositoryIngredient } from '../ingredients/infrastructure/repository.ingredient';
 
 export class EntityRecipe implements RecipeInterface {
-  execute(fileFactory: FileFactory): void {
-    fileFactory.createFileFromIngredient(new ModelIngredient());
-    fileFactory.createFileFromIngredient(new RepositoryInterfaceIngredient());
-    fileFactory.createFileFromIngredient(new DtoIngredient());
-    fileFactory.createFileFromIngredient(new InputIngredient());
-    fileFactory.createFileFromIngredient(new CreateInputIngredient());
-    fileFactory.createFileFromIngredient(new UpdateInputIngredient());
-    fileFactory.createFileFromIngredient(new EntityIngredient());
-    fileFactory.createFileFromIngredient(new RepositoryIngredient());
+  execute(
+    fileFactory: FileFactory,
+    name: string,
+    boundedContext: string,
+  ): void {
+    fileFactory.createFileFromIngredient(
+      new ModelIngredient(name, boundedContext),
+    );
+    fileFactory.createFileFromIngredient(
+      new RepositoryInterfaceIngredient(name, boundedContext),
+    );
+    fileFactory.createFileFromIngredient(
+      new DtoIngredient(name, boundedContext),
+    );
+    fileFactory.createFileFromIngredient(
+      new InputIngredient(name, boundedContext),
+    );
+    fileFactory.createFileFromIngredient(
+      new CreateInputIngredient(name, boundedContext),
+    );
+    fileFactory.createFileFromIngredient(
+      new UpdateInputIngredient(name, boundedContext),
+    );
+    fileFactory.createFileFromIngredient(
+      new EntityIngredient(name, boundedContext),
+    );
+    fileFactory.createFileFromIngredient(
+      new RepositoryIngredient(name, boundedContext),
+    );
   }
 }

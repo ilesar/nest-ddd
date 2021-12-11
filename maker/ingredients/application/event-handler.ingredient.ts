@@ -5,28 +5,30 @@ export class EventHandlerIngredient
   extends BaseIngredient
   implements IngredientInterface
 {
+  private readonly LOCATION = `src/${this.boundedContext}/application/handlers/event`;
+
   getFilePath(): string {
-    return 'create-something.event-handler.ts';
+    return `${this.LOCATION}/${this.kebabName()}.event-handler.ts`;
   }
 
   getImports(): any {
     return {
       '{ EventsHandler }': '@nestjs/cqrs',
-      '{ CreateSomethingEvent }': './create-something.event',
+      [`{ ${this.pascalName()}Event }`]: `./../../events/${this.kebabName()}.event`,
       '{ TemplateEventHandler }': '@core/templates/_template.event-handler',
     };
   }
 
   getDecorators(): any {
-    return { EventsHandler: ['CreateSomethingEvent'] };
+    return { EventsHandler: [`${this.pascalName()}Event`] };
   }
 
   getClassName(): string {
-    return 'CreateSomethingEventHandler';
+    return `${this.pascalName()}EventHandler`;
   }
 
   getClassExtends(): string {
-    return 'TemplateEventHandler<CreateSomethingEvent>';
+    return `TemplateEventHandler<${this.pascalName()}Event>`;
   }
 
   getClassImplements(): string[] | undefined {
@@ -53,7 +55,7 @@ export class EventHandlerIngredient
           parameters: [
             {
               name: 'event',
-              type: 'CreateSomethingEvent',
+              type: `${this.pascalName()}Event`,
             },
           ],
         },

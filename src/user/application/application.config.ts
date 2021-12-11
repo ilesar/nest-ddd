@@ -9,7 +9,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { IdentityManager } from '@user/infrastructure/modules/auth/services/identity-manager.service';
 import { JwtWebService } from '@user/infrastructure/modules/auth/services/jwt-web.service';
 import { AuthModule } from '@user/infrastructure/modules/auth/auth.module';
-import { GetUserQueryHandler } from './handlers/queries/get-user.query-handler';
+import { GetUserQueryHandler } from './handlers/query/get-user.query-handler';
 
 export const applicationConfig: ApplicationConfigInterface = {
   modules: [AuthModule, GraphqlModule, CqrsModule],

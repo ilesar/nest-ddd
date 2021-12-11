@@ -5,8 +5,10 @@ export class QueryIngredient
   extends BaseIngredient
   implements IngredientInterface
 {
+  private readonly LOCATION = `src/${this.boundedContext}/application/queries`;
+
   getFilePath(): string {
-    return 'something.query.ts';
+    return `${this.LOCATION}/${this.kebabName()}.query.ts`;
   }
 
   getImports(): any {
@@ -20,7 +22,7 @@ export class QueryIngredient
   }
 
   getClassName(): string {
-    return 'SomethingQuery';
+    return `${this.pascalName()}Query`;
   }
 
   getClassExtends(): string {

@@ -5,8 +5,10 @@ export class SubscriberIngredient
   extends BaseIngredient
   implements IngredientInterface
 {
+  private readonly LOCATION = `src/${this.boundedContext}/application/subscribers`;
+
   getFilePath(): string {
-    return 'something.subscriber.ts';
+    return `${this.LOCATION}/${this.kebabName()}.subscriber.ts`;
   }
 
   getImports(): any {
@@ -20,7 +22,7 @@ export class SubscriberIngredient
   }
 
   getClassName(): string {
-    return 'SomethingSubscriber';
+    return `${this.pascalName()}Subscriber`;
   }
 
   getClassExtends(): string {

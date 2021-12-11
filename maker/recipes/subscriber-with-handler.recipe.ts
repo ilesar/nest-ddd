@@ -4,8 +4,16 @@ import { SubscriberIngredient } from '../ingredients/application/subscriber.ingr
 import { SubscriberHandlerIngredient } from '../ingredients/application/subscriber-handler.ingredient';
 
 export class SubscriberWithHandlerRecipe implements RecipeInterface {
-  execute(fileFactory: FileFactory): void {
-    fileFactory.createFileFromIngredient(new SubscriberIngredient());
-    fileFactory.createFileFromIngredient(new SubscriberHandlerIngredient());
+  execute(
+    fileFactory: FileFactory,
+    name: string,
+    boundedContext: string,
+  ): void {
+    fileFactory.createFileFromIngredient(
+      new SubscriberIngredient(name, boundedContext),
+    );
+    fileFactory.createFileFromIngredient(
+      new SubscriberHandlerIngredient(name, boundedContext),
+    );
   }
 }
